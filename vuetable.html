@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="vue.js"></script>
+		<style>
+			table{
+				border-collapse: collapse;
+			}
+			th,td{
+				width: 250px;
+				height: 60px;
+				text-align: center;
+				border: 1px solid #404040;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<table>
+				<thead>
+					<th>ID</th>
+					<th>姓名</th>
+					<th>性别</th>
+					<th>年龄</th>
+					<th>管理</th>
+				</thead>
+				<tbody>
+					<tr v-for="(val,key) in ms">
+						<td>{{key+1}}</td>
+						<td>{{val.name}}</td>
+						<td>{{val.gender}}</td>
+						<td>{{val.age}}</td>
+						<td><input type="button" value="删除" @click="a(key)"/></td>
+					</tr>
+					<tr v-show="ms.length<1">
+						<td colspan="6">没有数据</td>
+					</tr>
+					<tr>
+						<td>id</td>
+						<td><input type="text" v-model="name"/></td>
+						<td><input type="text" v-model="gender"/></td>
+						<td><input type="text" v-model="age"/></td>						
+						<td><input type="button" value="录入" @click="b()"/></td>
+					</tr>
+					
+				</tbody>
+			</table>
+			<button @click="c()">全部删除</button>
+		</div>
+	</body>
+</html>
+<script>
+	new Vue({
+		el:'#app',
+		data:{
+			s:1,
+			ms:[{'name':'liu','gender':'male','age':10},
+				{'name':'刘','gender':'男','age':10},
+				{'name':'liu','gender':'male','age':10},
+				{'name':'刘','gender':'男','age':10}],
+			name:'',
+			gender:'',
+			age:''
+		},
+		methods:{
+			a(key){
+				this.ms.splice(key,1);
+			},
+			b(){
+				let vs={
+					'name':this.name,
+					'gender':this.gender,
+					'age':this.age
+				};
+				this.ms.push(vs);
+			},
+			c(){
+				this.ms=[];
+			}
+			
+		}
+	})
+</script>
